@@ -7,12 +7,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author jplc
  */
 @Entity
+@XmlRootElement
+@NamedQueries({
+  @NamedQuery(name = "Student.findAll", 
+      query = "SELECT s FROM Student s"),
+  @NamedQuery(name = "Student.findById", 
+      query = "SELECT s FROM Student s WHERE s.id = :id"),
+  @NamedQuery(name = "Student.findByLastname", 
+      query = "SELECT s FROM Student s WHERE s.lastname = :lastname"),
+  @NamedQuery(name = "Student.findByFirstname", 
+      query = "SELECT s FROM Student s WHERE s.firstname = :firstname")})
 public class Student implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -48,10 +63,12 @@ public class Student implements Serializable {
     this.firstname = firstname;
   }
 
+  @XmlTransient
   public Set getCourseSet() {
     return courseSet;
   }
 
+  @XmlElement
   public void setCourseSet(Set courseSet) {
     this.courseSet = courseSet;
   }
