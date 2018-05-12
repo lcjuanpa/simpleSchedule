@@ -56,6 +56,17 @@ public class CourseFacadeREST extends AbstractFacade<Course> {
   public Course find(@PathParam("code") Long code) {
     return super.find(code);
   }
+  
+  @GET
+  @Path("/title/{title}")
+  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  public Course findByTitle(@PathParam("title") String title) {
+    return super.findBy("Course.findByTitle", "title", title);
+//    return (Course) getEntityManager()
+//        .createNamedQuery("Course.findByTitle")
+//        .setParameter("title", title)
+//        .getSingleResult();
+  }
 
   @GET
   @Override

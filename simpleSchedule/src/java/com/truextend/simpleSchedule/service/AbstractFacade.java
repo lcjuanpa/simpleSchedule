@@ -32,6 +32,13 @@ public abstract class AbstractFacade<T> {
   public T find(Object id) {
     return getEntityManager().find(entityClass, id);
   }
+  
+  public T findBy(String namedQueryTitle, String fieldToSearch, Object value) {
+    return (T) getEntityManager()
+        .createNamedQuery(namedQueryTitle)
+        .setParameter(fieldToSearch, value)
+        .getSingleResult();
+  }
 
   public List<T> findAll() {
     javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();

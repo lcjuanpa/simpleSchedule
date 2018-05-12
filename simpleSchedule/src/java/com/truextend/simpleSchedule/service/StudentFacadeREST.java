@@ -64,6 +64,17 @@ public class StudentFacadeREST extends AbstractFacade<Student> {
   public List<Student> findAll() {
     return super.findAll();
   }
+  
+  @GET
+  @Path("/lastname/{lastname}")
+  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  public Student findByLastname(@PathParam("lastname") String lastname) {
+    return super.findBy("Student.findByLastname", "lastname", lastname);
+//    return (Student) getEntityManager()
+//        .createNamedQuery("Student.findByLastname")
+//        .setParameter("lastname", lastname)
+//        .getSingleResult();
+  }
 
   @GET
   @Path("{from}/{to}")
